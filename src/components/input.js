@@ -2,8 +2,6 @@ import { StyleSheet, Text, View, TextInput } from 'react-native';
 
 export default function App({ title, placeholder, onChange, secureTextEntry }) {
 
-
-
   return (
     <>
       <View style={styles.title}>{title}</View>

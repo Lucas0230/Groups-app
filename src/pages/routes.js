@@ -13,6 +13,7 @@ import Search from "./search";
 import Create from "./create_group";
 import Groups from "./groups";
 
+import Chat from './chat'
 const AppStack = createStackNavigator();
 
 
@@ -24,13 +25,17 @@ export default function Routes() {
         gestureDirection: "horizontal",
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
       }}>
-        <AppStack.Screen name="Login" component={Login} />
-        <AppStack.Screen name="Choices" component={Choices} />
 
+
+
+        <AppStack.Screen name="Chat" component={Chat} />
+        <AppStack.Screen name="Create" component={Create} />
+        <AppStack.Screen name="Login" component={Login} />
+
+        <AppStack.Screen name="Choices" component={Choices} />
 
         <AppStack.Screen name="Groups" component={Groups} />
 
-        <AppStack.Screen name="Create" component={Create} />
         <AppStack.Screen name="Search" component={Search} />
         <AppStack.Screen name="Home" component={Home} />
         <AppStack.Screen name="Register" component={Register} />
