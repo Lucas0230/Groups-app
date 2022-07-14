@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
         justifyContent: 'left',
         alignItems: 'center',
         flexDirection: 'row',
+        fontFamily: 'Voltaire_400Regular'
     },
     
 });

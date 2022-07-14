@@ -9,6 +9,22 @@ import Choices from './views/choices'
 import React from "react";
 import Routes from "./src/pages/routes";
 
+// import {
+//   useFonts,
+//   Inter_900Black,
+// } from '@expo-google-fonts/inter';
+
+
+import {
+  useFonts,
+  Voltaire_400Regular,
+} from '@expo-google-fonts/voltaire';
+
 export default function App() {
-  return  <Routes />
+
+  let [fontsLoaded] = useFonts({
+    Voltaire_400Regular,
+  });
+
+  return  <Routes/>
 }

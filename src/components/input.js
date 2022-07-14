@@ -1,34 +1,37 @@
 import { StyleSheet, Text, View, TextInput } from 'react-native';
 
-export default function App({title, placeholder,onChange}) {
+export default function App({ title, placeholder, onChange, secureTextEntry }) {
+
+
+
   return (
-   <>
-   <View  style={styles.title}>{title}</View>
-   <TextInput
-   onChange={onChange}
+    <>
+      <View style={styles.title}>{title}</View>
+      <TextInput secureTextEntry={secureTextEntry ? secureTextEntry : false} onChange={onChange}
         style={styles.input}
         placeholder={placeholder}
       />
-   </>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-    title: {
-        width: '75%',
-        textAlign: 'left',
-        marginBottom: '5px',
-        fontSize: 22
-    },  
-    input: {
-        padding: '10px',
-        borderColor: '#9adcb9',
-        borderWidth: '3px',
-        borderRadius: '20px',
-        width: '80%',
-        marginBottom: '15px',
+  title: {
+    width: '75%',
+    textAlign: 'left',
+    marginBottom: '5px',
+    fontSize: 22,
+    fontFamily: 'Voltaire_400Regular'
+  },
+  input: {
+    padding: '10px',
+    borderColor: '#9adcb9',
+    borderWidth: '3px',
+    borderRadius: '20px',
+    width: '80%',
+    marginBottom: '15px',
 
-    },
+  },
   container: {
     flex: 1,
     backgroundColor: '#5ac7aa',

@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity } from 'react-native';
 
@@ -7,46 +7,75 @@ import Input from '../components/input'
 import OutlineButton from '../components/outlineButton'
 import Box from '../components/box'
 
-export default function First({route}) {
+import { API } from '@env'
 
-  const [user, setUser] = useState(route.params.user)
+export default function First({ route }) {
 
   const navigation = useNavigation();
 
-  function navigateToChoices() {
-    navigation.navigate("Choices");
+  const [choices, setChoices] = useState([]);
+
+  function choose(item) {
+
+    choices.forEach((choice, index) => {
+      if (choice == item) {
+        return choices.splice(index, 1);
+      }
+    }).then(() => {
+      setChoices(choices => [...choices, item])
+    })
+
+  }
+
+  async function register() {
+
+    let { dados } = route.params;
+    dados.choices = choices;
+
+    const { ok } = await fetch(API + '/users', {
+      method: 'POST',
+      body: JSON.stringify(dados),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+
+    if (ok) {
+      navigation.navigate("Login");
+    }
+
   }
 
   return (
-            
-        <>     
-                
-                <View style={styles.container}>
-      <View style={styles.headline}> 
 
-        <Text  style={{fontSize: 28, marginTop: 10, fontWeight: 600, marginBottom: 10}}>Selecione seus gostos</Text> 
+    <>
 
-           <OutlineButton title="Próximo "></OutlineButton>
+      <View style={styles.container}>
+        <View style={styles.headline}>
+
+          <Text style={{ fontSize: 28, fontFamily: 'Voltaire_400Regular', marginTop: 10, fontWeight: 600, marginBottom: 10 }}>Selecione seus gostos</Text>
+
+          <OutlineButton onPress={() => { register() }} title="Próximo "></OutlineButton>
+        </View>
+        <View style={styles.main}>
+
+          <View style={styles.row}>
+            <Box onPress={() => { setChoices(choices => [...choices, 'Futebol']) }} title={'Futebol'}></Box>
+            <Box onPress={() => { setChoices(choices => [...choices, 'Música']) }} title={'Música'}></Box>
+          </View>
+          <View style={styles.row}>
+            <Box onPress={() => { setChoices(choices => [...choices, 'Arte']) }} title={'Arte'}></Box>
+            <Box onPress={() => { setChoices(choices => [...choices, 'Futebol']) }} title={'Tecnologia'}></Box>
+          </View>
+          <View style={styles.row}>
+            <Box onPress={() => { setChoices(choices => [...choices, 'Cinema']) }} title={'Cinema'}></Box>
+            <Box onPress={() => { setChoices(choices => [...choices, 'Cinema']) }} title={'Livro'}></Box>
+          </View>
+
+        </View>
       </View>
-      <View style={styles.main}>
 
-        <View style={styles.row}>
-          <Box onPress={(e)=>{console.log(e.target.value)}} title={'Futebol'}></Box>
-          <Box title={'Música'}></Box>
-        </View>
-        <View style={styles.row}>
-          <Box title={'Arte'}></Box>
-          <Box title={'Tecnologia'}></Box>
-        </View>
-        <View style={styles.row}>
-          <Box title={'Cinema'}></Box>
-          <Box title={'Livro'}></Box>
-        </View>
-        
-      </View>
-   </View>
-
-        </>
+    </>
 
   );
 }
@@ -74,9 +103,9 @@ const styles = StyleSheet.create({
     borderTopEndRadius: '37px',
     borderTopStartRadius: '37px',
     backgroundColor: '#ffff',
-    paddingTop:'40px',
+    paddingTop: '40px',
     padding: 30,
-    
+
   },
   row: {
     flexDirection: 'row',
@@ -89,7 +118,36 @@ const styles = StyleSheet.create({
     width: '75%',
     textAlign: 'left',
     marginBottom: '5px',
-    fontSize: 22
-},  
-    
+    fontSize: 22,
+    fontFamily: 'Voltaire_400Regular'
+  },
+  button: {
+    padding: '6px',
+    borderRadius: '37px',
+    backgroundColor: "#fffff",
+    width: '40vw',
+    borderColor: '#9adcb9',
+    borderWidth: '2px',
+    marginBottom: '15px',
+    marginTop: '15px',
+    textAlign: 'center',
+    height: '40vw',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  buttonSelected: {
+    padding: '6px',
+    borderRadius: '37px',
+    backgroundColor: "#9adcb9",
+    borderColor: '#9adcb9',
+    borderWidth: '2px',
+    width: '40vw',
+    marginBottom: '15px',
+    marginTop: '15px',
+    textAlign: 'center',
+    height: '40vw',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+
 });

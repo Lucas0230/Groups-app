@@ -7,7 +7,7 @@ export default function App({title, onPress}) {
         style={styles.button}
         onPress={onPress}
       >
-        <Text style={{fontSize: '22px'}}>{title}</Text>
+        <Text style={{fontSize: '26px', fontFamily: 'Voltaire_400Regular'}}>{title}</Text>
       </TouchableOpacity>
    </>
   );
@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
         marginBottom: '15px',
         marginTop: '15px',
         textAlign: 'center',
+        fontFamily: 'Voltaire_400Regular'
         
     },
     

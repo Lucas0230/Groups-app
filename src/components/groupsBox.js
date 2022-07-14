@@ -5,8 +5,8 @@ export default function App({title, icon}) {
    <>
         <TouchableOpacity style={styles.button}>
 
-           <Image style={styles.icon} source={{uri: icon}}></Image>
-            <Text>{title}</Text>
+           <Image style={styles.image} source={{uri: icon}}></Image>
+            <Text style={{fontSize: 18}}>{title}</Text>
         </TouchableOpacity>
     </>
   );
@@ -17,8 +17,7 @@ const styles = StyleSheet.create({
         width: '75%',
         textAlign: 'left',
         marginBottom: '5px',
-        fontSize: 22,
-        fontWeight: 500
+        fontSize: 22
     },  
     button: {
         padding: '10px',
@@ -30,33 +29,11 @@ const styles = StyleSheet.create({
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
-    
+      gap: 10,
     },
-  container: {
-    flex: 1,
-    backgroundColor: '#5ac7aa',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column'
-  },
-  headline: {
-    flex: 1,
-    width: '100%'
-  },
-  main: {
-    flex: 2,
-    width: '100%',
-    borderTopEndRadius: '37px',
-    borderTopStartRadius: '37px',
-    backgroundColor: '#ffff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  icon: {
-    width: 50,
-    height: 50,
-    borderRadius: '50%',
-    backgroundColor: '#000000',
-    marginRight: 20
+  image :{
+    width: 30, 
+    height: 30,
+    borderRadius: '50%'
   }
 });
