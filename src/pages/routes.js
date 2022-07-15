@@ -27,17 +27,17 @@ export default function Routes() {
       }}>
 
 
-
-        <AppStack.Screen name="Chat" component={Chat} />
         <AppStack.Screen name="Create" component={Create} />
         <AppStack.Screen name="Login" component={Login} />
+
+        <AppStack.Screen name="Chat" component={Chat} />
 
         <AppStack.Screen name="Choices" component={Choices} />
 
         <AppStack.Screen name="Groups" component={Groups} />
 
-        <AppStack.Screen name="Search" component={Search} />
         <AppStack.Screen name="Home" component={Home} />
+        <AppStack.Screen name="Search" component={Search} />
         <AppStack.Screen name="Register" component={Register} />
         <AppStack.Screen name="RegisterTwo" component={RegisterTwo} />
       </AppStack.Navigator>

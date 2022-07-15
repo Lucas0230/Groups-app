@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fffff',
         alignItems: 'center',
         justifyContent: 'center',
-        flexDirection: 'column'
+        flexDirection: 'column',
     },
     headline: {
         flex: 1,

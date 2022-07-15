@@ -16,6 +16,7 @@ export default function First({ navigation }) {
     });
   }
 
+
   const [name, setName] = useState()
   const [password, setPassword] = useState()
   const [email, setEmail] = useState()
