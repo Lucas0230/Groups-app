@@ -16,6 +16,8 @@ export default function First({ navigation, route }) {
 
     let { dados } = route.params;
 
+    console.log(dados, '2')
+
     dados.age = age;
     dados.about = about
 

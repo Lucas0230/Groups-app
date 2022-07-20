@@ -8,6 +8,7 @@ import OutlineButton from '../components/outlineButton'
 import Box from '../components/box'
 
 import { API } from '@env'
+import { Api } from "../Api";
 
 export default function First({ route }) {
 
@@ -32,13 +33,7 @@ export default function First({ route }) {
     let { dados } = route.params;
     dados.choices = choices;
 
-    const { ok } = await fetch(API + '/users', {
-      method: 'POST',
-      body: JSON.stringify(dados),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    })
+    const { ok } = await Api.signUp(dados);
 
     if (ok) {
       navigation.navigate("Login");

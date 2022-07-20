@@ -1,13 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
-import Login from './views/login'     
-import Register from './views/register'     
-import Register_Two from './views/register_two'     
-import Choices from './views/choices'  
+import Login from './views/login'
+import Register from './views/register'
+import Register_Two from './views/register_two'
+import Choices from './views/choices'
 
 import React from "react";
 import Routes from "./src/pages/routes";
+
+import UserContextProvider from './src/contexts/UserContext';
 
 // import {
 //   useFonts,
@@ -26,5 +28,9 @@ export default function App() {
     Voltaire_400Regular,
   });
 
-  return  <Routes/>
+  return (
+    <UserContextProvider>
+      <Routes />
+    </UserContextProvider>
+  )
 }

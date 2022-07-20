@@ -20,12 +20,12 @@ export default function First({ navigation }) {
   const [name, setName] = useState()
   const [password, setPassword] = useState()
   const [email, setEmail] = useState()
-  const [cpf, setCpf] = useState()
+  // const [cpf, setCpf] = useState()
   const [phone, setPhone] = useState()
 
   const proximo = () => {
 
-    let user = { name, password, email, cpf, phone };
+    let newUser = { name, password, email, phone };
 
     // for (let data of Object.keys(user)) {
 
@@ -35,7 +35,7 @@ export default function First({ navigation }) {
 
     // }
 
-    navigateToRegisterTwo(user);
+    navigateToRegisterTwo(newUser);
 
   }
 
@@ -49,11 +49,11 @@ export default function First({ navigation }) {
 
       </View>
       <View style={styles.main}>
-        <Input onChange={() => { setName(event.target.value) }} title='Nome:' placeholder="Digite seu nome"></Input>
-        <Input onChange={() => { setPassword(event.target.value) }} title='Senha:' placeholder="Digite sua senha"></Input>
-        <Input onChange={() => { setEmail(event.target.value) }} title='Email:' placeholder="Digite sua email"></Input>
-        <Input onChange={() => { setCpf(event.target.value) }} title='CPF:' placeholder="Digite sua CPF"></Input>
-        <Input onChange={() => { setPhone(event.target.value) }} title='Telefone:' placeholder="Digite sua telefone"></Input>
+        <Input onChangeText={(t) => { setName(t) }} value={name} title='Nome:' placeholder="Digite seu nome"></Input>
+        <Input onChangeText={(t) => { setPassword(t) }} value={password} title='Senha:' placeholder="Digite sua senha"></Input>
+        <Input onChangeText={(t) => { setEmail(t) }} value={email} title='Email:' placeholder="Digite sua email"></Input>
+        {/* <Input onChange={() => { setCpf(event.target.value) }} title='CPF:' placeholder="Digite sua CPF"></Input> */}
+        <Input onChangeText={(t) => { setPhone(t) }} value={phone} title='Telefone:' placeholder="Digite sua telefone"></Input>
 
 
         <Button onPress={() => { proximo() }} title='Próximo >'></Button>

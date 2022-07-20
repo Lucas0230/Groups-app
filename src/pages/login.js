@@ -1,18 +1,20 @@
 
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, View, TouchableOpacity, Text, Image } from "react-native";
+
+import { UserContext } from "../contexts/UserContext";
+import { Api } from "../Api";
+import AsyncStorage from "@react-native-community/async-storage";
 
 import Input from '../components/input'
 import Button from '../components/button'
 import Alerts from '../components/alerts'
 
-import { API } from '@env';
 
 export default function First() {
 
-  const [error, setError] = useState(false);
-
+  const { dispatch: userDispatch } = useContext(UserContext);
   const navigation = useNavigation();
 
   function navigateToRegister() {
@@ -32,18 +34,17 @@ export default function First() {
       return
     }
 
-    let user = { email, password };
+    const { token } = await Api.signIn(email, password);
 
-    const { status, ok } = await fetch(API + '/auth', {
-      method: 'POST',
-      body: JSON.stringify(user),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    })
+    if (token) {
+      await AsyncStorage.setItem('token', token);
 
-    if (status == 200 && ok) {
-      next()
+      UserContext({
+        type: 'setAvatar',
+        payload: {
+          avatar: 'testestesttestesteste'
+        }
+      })
     }
 
   }
@@ -60,8 +61,8 @@ export default function First() {
         </View>
         <View style={styles.main}>
 
-          <Input onChange={() => { setEmail(event.target.value) }} title='Email:' placeholder="Digite seu usuário"></Input>
-          <Input secureTextEntry={true} onChange={() => { setPassword(event.target.value) }} title='Senha:' placeholder="Digite sua senha"></Input>
+          <Input onChangeText={(t) => { setEmail(t) }} value={email} title='Email:' placeholder="Digite seu usuário"></Input>
+          <Input secureTextEntry={true} onChangeText={(t) => { setPassword(t) }} value={password} title='Senha:' placeholder="Digite sua senha"></Input>
 
           <View style={styles.google}>
             <Text style={{ fontSize: 15 }}>Conecte com o google</Text>
@@ -79,8 +80,6 @@ export default function First() {
 
         </View>
       </View>
-
-      <Alerts state={error}></Alerts>
 
     </>
 

@@ -14,18 +14,22 @@ import Create from "./create_group";
 import Groups from "./groups";
 
 import Chat from './chat'
+
+import Preload from './preload'
 const AppStack = createStackNavigator();
 
 
 export default function Routes() {
   return (
     <NavigationContainer>
-      <AppStack.Navigator screenOptions={{
+      <AppStack.Navigator initialRouteName="Preload" screenOptions={{
+        headerShown: false,
         gestureEnabled: true,
         gestureDirection: "horizontal",
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
       }}>
 
+        <AppStack.Screen name="Preload" component={Preload} />
 
         <AppStack.Screen name="Create" component={Create} />
         <AppStack.Screen name="Login" component={Login} />
@@ -41,6 +45,6 @@ export default function Routes() {
         <AppStack.Screen name="Register" component={Register} />
         <AppStack.Screen name="RegisterTwo" component={RegisterTwo} />
       </AppStack.Navigator>
-    </NavigationContainer>
+    </NavigationContainer >
   );
 }

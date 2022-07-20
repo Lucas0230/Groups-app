@@ -1,11 +1,13 @@
 import { StyleSheet, Text, View, TextInput } from 'react-native';
 
-export default function App({ title, placeholder, onChange, secureTextEntry }) {
+export default function App({ title, placeholder, value, onChangeText, secureTextEntry }) {
 
   return (
     <>
       <View style={styles.title}>{title}</View>
-      <TextInput secureTextEntry={secureTextEntry ? secureTextEntry : false} onChange={onChange}
+      <TextInput secureTextEntry={secureTextEntry ? secureTextEntry : false}
+        value={value}
+        onChangeText={onChangeText}
         style={styles.input}
         placeholder={placeholder}
       />
