@@ -5,15 +5,38 @@ import { useNavigation } from "@react-navigation/native";
 
 import { StyleSheet, View, ActivityIndicator, Image } from "react-native";
 
+import socketClient from "socket.io-client";
 
 import AsyncStorage from '@react-native-community/async-storage';
 import { Api } from "../Api";
 
+// const SERVER = "http://localhost:8080";
+const SERVER = "http://172.21.167.35:8080";
+
+
 export default function First({ }) {
+
+    var socket = socketClient(SERVER);
+    socket.on('connection', () => {
+        console.log(`I'm connected with the back-end`);
+    });
 
     const navigation = useNavigation();
 
     useEffect(() => {
+
+        const test = async () => {
+            const teste = await fetch(SERVER + '/getChannels', {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-type': 'application/json',
+                },
+            })
+            console.log(teste)
+        }
+
+        test()
 
         const checkToken = async () => {
             const token = await AsyncStorage.getItem('token');
@@ -25,11 +48,15 @@ export default function First({ }) {
             const { name, email, choices, phone } = await Api.checkToken(token);
 
             if (name && email && choices && phone) {
-                navigation.navigate('Groups')
+                return navigation.navigate('Groups')
             }
+            navigation.navigate('Login')
         }
 
-        checkToken();
+        // checkToken();
+
+
+
     }, [])
 
     return (

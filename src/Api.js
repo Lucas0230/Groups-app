@@ -39,5 +39,16 @@ export const Api = {
         let { name, email, choices, phone } = await response.json();
         return { name, email, choices, phone };
     },
+    getGroups: async () => {
+        const response = await fetch(API + '/groups', {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+        let res = await response.json();
+        return res;
 
-};
+    }
+}

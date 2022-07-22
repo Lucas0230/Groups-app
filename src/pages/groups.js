@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, View, TouchableOpacity, Text, Image } from "react-native";
 
@@ -7,6 +7,7 @@ import Input from '../components/input'
 import Button from '../components/button'
 import SearchInput from '../components/searchInput'
 import GroupsBox from '../components/groupsBox'
+import { Api } from "../Api";
 
 export default function First() {
 
@@ -15,6 +16,17 @@ export default function First() {
   function navigateToSecond() {
     navigation.navigate("Register");
   }
+
+  const [listGroups, setListGroups] = useState([]);
+
+  async function getGroups() {
+    const { response } = await Api.getGroups();
+    setListGroups(response);
+  }
+
+  useEffect(() => {
+    getGroups();
+  }, []);
 
 
   return (
@@ -29,14 +41,15 @@ export default function First() {
 
           <SearchInput></SearchInput>
 
-          <GroupsBox title='Grupo do Futebol' icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/280px-Football_iu_1996.jpg'></GroupsBox>
-          <GroupsBox title='Grupo do Futebol' icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/280px-Football_iu_1996.jpg'></GroupsBox>
-          <GroupsBox title='Grupo do Futebol' icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/280px-Football_iu_1996.jpg'></GroupsBox>
-          <GroupsBox title='Grupo do Futebol' icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/280px-Football_iu_1996.jpg'></GroupsBox>
-          <GroupsBox title='Grupo do Futebol' icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/280px-Football_iu_1996.jpg'></GroupsBox>
-          <GroupsBox title='Grupo do Futebol' icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/280px-Football_iu_1996.jpg'></GroupsBox>
-          <GroupsBox title='Grupo do Futebol' icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/280px-Football_iu_1996.jpg'></GroupsBox>
-          <GroupsBox title='Grupo do Futebol' icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/280px-Football_iu_1996.jpg'></GroupsBox>
+          {
+            listGroups.map((element) => {
+              return (
+                <GroupsBox title={element.name} icon={element.avatar}></GroupsBox>
+              )
+            })
+          }
+
+
           <GroupsBox title='Grupo do Futebol' icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/280px-Football_iu_1996.jpg'></GroupsBox>
           <GroupsBox title='Grupo do Futebol' icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/280px-Football_iu_1996.jpg'></GroupsBox>
 
