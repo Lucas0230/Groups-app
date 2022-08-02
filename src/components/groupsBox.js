@@ -1,9 +1,9 @@
 import { StyleSheet, Text, Image, View, TextInput, TouchableOpacity } from 'react-native';
 
-export default function App({ title, icon }) {
+export default function App({ title, icon, onPress }) {
   return (
     <>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity onPress={onPress} style={styles.button}>
 
         <Image style={styles.image} source={{ uri: icon }}></Image>
         <Text style={{ fontSize: 18 }}>{title}</Text>

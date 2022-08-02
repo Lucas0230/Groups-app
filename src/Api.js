@@ -50,5 +50,17 @@ export const Api = {
         let res = await response.json();
         return res;
 
+    },
+    getChatConversations: async (groupId) => {
+        const response = await fetch(API + `/chats/${groupId}`, {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+        let res = await response.json();
+        return res;
+
     }
 }

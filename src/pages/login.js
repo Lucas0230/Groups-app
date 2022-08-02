@@ -39,12 +39,16 @@ export default function First() {
     if (token) {
       await AsyncStorage.setItem('token', token);
 
+      console.log(token)
+
       UserContext({
         type: 'setAvatar',
         payload: {
           avatar: 'testestesttestesteste'
         }
       })
+
+      next()
     }
 
   }

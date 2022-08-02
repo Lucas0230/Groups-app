@@ -3,18 +3,18 @@ import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, View, TouchableOpacity, Text, Image } from "react-native";
 
-import Input from '../components/input'
-import Button from '../components/button'
 import SearchInput from '../components/searchInput'
 import GroupsBox from '../components/groupsBox'
 import { Api } from "../Api";
+
+import Socket from "../Socket";
 
 export default function First() {
 
   const navigation = useNavigation();
 
-  function navigateToSecond() {
-    navigation.navigate("Register");
+  function navigateToChat(params) {
+    navigation.navigate("Chat", params);
   }
 
   const [listGroups, setListGroups] = useState([]);
@@ -44,7 +44,7 @@ export default function First() {
           {
             listGroups.map((element) => {
               return (
-                <GroupsBox title={element.name} icon={element.avatar}></GroupsBox>
+                <GroupsBox onPress={() => { navigateToChat({ _id: element._id }) }} title={element.name} icon={element.avatar}></GroupsBox>
               )
             })
           }

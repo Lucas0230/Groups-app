@@ -1,52 +1,56 @@
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, View, TouchableOpacity, Text, Image } from "react-native";
 
-import Input from '../components/input'
-import Button from '../components/button'
-import Alerts from '../components/alerts'
+import Socket from "../Socket";
 
-import { API } from '@env';
+import { Api } from "../Api";
 
-export default function First() {
+export default function First({ route }) {
 
-    const [error, setError] = useState(false);
+    const groupId = route.params._id;
+
+    const [chat, setChat] = useState([]);
+
+    async function getChatConversations(groupId) {
+        const { response } = await Api.getChatConversations(groupId);
+        console.log(response)
+        setChat(response.timeline);
+    }
+
+    // [
+    //     {
+    //         "message": "TESTE",
+    //         "userId": false,
+    //         "time": "2022-07-22T11:28:11.081Z"
+    //     },
+    //     {
+    //         "message": "TESTE",
+    //         "userId": false,
+    //         "time": "2022-07-22T11:28:13.041Z"
+    //     }
+    // ]
+
+    function renderMessage(item) {
+        setChat(chat => [...chat, item])
+
+    }
+
+    useEffect(() => {
+
+        Socket.connect();
+
+        Socket.join({ room: groupId })
+
+        Socket.newMessage(renderMessage)
+
+        getChatConversations(groupId);
+
+    }, [])
+
 
     const navigation = useNavigation();
-
-    function navigateToRegister() {
-        navigation.navigate("Register");
-    }
-
-    function next() {
-        navigation.navigate("Groups");
-    }
-
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
-
-    const login = async () => {
-
-        if (!email || !password) {
-            return
-        }
-
-        let user = { email, password };
-
-        const { status, ok } = await fetch(API + '/auth', {
-            method: 'POST',
-            body: JSON.stringify(user),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-            },
-        })
-
-        if (status == 200 && ok) {
-            next()
-        }
-
-    }
 
     return (
 
@@ -55,7 +59,33 @@ export default function First() {
             <View style={styles.headline}>
 
             </View>
+
+            <TouchableOpacity onPress={() => {
+                Socket.sendMessage({
+                    message: 'MESNAGE',
+                    userId: 'USERID',
+                    time: 'TEMPO DE AGORA',
+                    room: groupId
+                })
+            }}>
+                TESTE
+            </TouchableOpacity>
+
             <View style={styles.container}>
+
+                {
+                    chat.map((element) => {
+                        if (!element.message) return
+                        return (
+                            <View style={styles.message}>
+                                <Text style={styles.messageText}>{element.message}</Text>
+                            </View>)
+                    })
+                }
+
+                <View style={styles.message}>
+                    <Text style={styles.messageText}>Teste de mesange do Groups</Text>
+                </View>
 
             </View>
 
@@ -98,19 +128,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingTop: '40px',
     },
-    google: {
-        padding: '10px',
-        borderRadius: '20px',
-        backgroundColor: '#eeeeee',
-        width: '80%',
-        marginTop: '15px',
-        marginBottom: '15px',
-        display: 'flex',
-        alignItems: 'center'
+    message: {
+        padding: 10,
+        marginTop: 4,
+        backgroundColor: '#5ac7aa',
     },
-    footer: {
-        borderTopColor: '#000000',
-        borderTopWidth: '1px',
-        width: '80%'
+    messageText: {
+        fontSize: 20
     }
 });
