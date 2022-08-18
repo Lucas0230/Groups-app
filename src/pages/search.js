@@ -1,12 +1,14 @@
 
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-import {StyleSheet,  View, TouchableOpacity, Text, Image } from "react-native";
+import { StyleSheet, View, TouchableOpacity, Text, Image } from "react-native";
 
 import Input from '../components/input'
 import Button from '../components/button'
 import SearchInput from '../components/searchInput'
 import GroupsBox from '../components/groupsBox'
+
+import { Api } from "../Api";
 
 export default function First() {
 
@@ -15,35 +17,41 @@ export default function First() {
   function navigateToSecond() {
     navigation.navigate("Register");
   }
-  
+
+  const getGroups = async () => {
+
+    const { token } = await Api.groups(email, password);
+
+  }
+
 
   return (
-            
-        <>     
-                
-        <View style={styles.container}>
-            <View style={styles.headline}> 
-                <Text  style={styles.title}>PESQUISAR GRUPOS</Text>
-            </View>
-            <View style={styles.main}>
 
-            <SearchInput></SearchInput>
+    <>
 
-            <GroupsBox title='Grupo do Futebol' icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/280px-Football_iu_1996.jpg'></GroupsBox>
-            <GroupsBox title='Grupo do Futebol' icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/280px-Football_iu_1996.jpg'></GroupsBox>
-            <GroupsBox title='Grupo do Futebol' icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/280px-Football_iu_1996.jpg'></GroupsBox>
-            <GroupsBox title='Grupo do Futebol' icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/280px-Football_iu_1996.jpg'></GroupsBox>
-            <GroupsBox title='Grupo do Futebol' icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/280px-Football_iu_1996.jpg'></GroupsBox>
-            <GroupsBox title='Grupo do Futebol' icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/280px-Football_iu_1996.jpg'></GroupsBox>
-            <GroupsBox title='Grupo do Futebol' icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/280px-Football_iu_1996.jpg'></GroupsBox>
-            <GroupsBox title='Grupo do Futebol' icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/280px-Football_iu_1996.jpg'></GroupsBox>
-            <GroupsBox title='Grupo do Futebol' icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/280px-Football_iu_1996.jpg'></GroupsBox>
-            <GroupsBox title='Grupo do Futebol' icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/280px-Football_iu_1996.jpg'></GroupsBox>
-           
-            </View>
+      <View style={styles.container}>
+        <View style={styles.headline}>
+          <Text style={styles.title}>PESQUISAR GRUPOS</Text>
         </View>
+        <View style={styles.main}>
 
-        </>
+          <SearchInput></SearchInput>
+
+          <GroupsBox title='Grupo do Futebol' icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/280px-Football_iu_1996.jpg'></GroupsBox>
+          <GroupsBox title='Grupo do Futebol' icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/280px-Football_iu_1996.jpg'></GroupsBox>
+          <GroupsBox title='Grupo do Futebol' icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/280px-Football_iu_1996.jpg'></GroupsBox>
+          <GroupsBox title='Grupo do Futebol' icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/280px-Football_iu_1996.jpg'></GroupsBox>
+          <GroupsBox title='Grupo do Futebol' icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/280px-Football_iu_1996.jpg'></GroupsBox>
+          <GroupsBox title='Grupo do Futebol' icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/280px-Football_iu_1996.jpg'></GroupsBox>
+          <GroupsBox title='Grupo do Futebol' icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/280px-Football_iu_1996.jpg'></GroupsBox>
+          <GroupsBox title='Grupo do Futebol' icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/280px-Football_iu_1996.jpg'></GroupsBox>
+          <GroupsBox title='Grupo do Futebol' icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/280px-Football_iu_1996.jpg'></GroupsBox>
+          <GroupsBox title='Grupo do Futebol' icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/280px-Football_iu_1996.jpg'></GroupsBox>
+
+        </View>
+      </View>
+
+    </>
 
   );
 }
@@ -52,52 +60,51 @@ export default function First() {
 
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#5ac7aa',
-      alignItems: 'center',
-      justifyContent: 'center',
-      flexDirection: 'column'
-    },
-    title: {
-        fontSize: 27,
-        fontWeight: 600
-    },  
-    headline: {
-      flex: 1,
-      width: '100%',
-      justifyContent: 'center',
-      alignItems: 'center'
-    },
-    row: {
-        flexDirection: 'row',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between'
-      },
-    main: {
-      flex: 3,
-      width: '100%',
-      borderTopEndRadius: '37px',
-      borderTopStartRadius: '37px',
-      backgroundColor: '#ffff',
-      alignItems: 'center',
-      paddingTop:'40px',
-    },
-     google: {
-      padding: '10px',
-      borderRadius: '20px',
-      backgroundColor: '#eeeeee',
-      width: '80%',
-      marginTop: '15px',
-      marginBottom: '15px',
-      display: 'flex',
-      alignItems: 'center'
-     },
-     footer: {
-       borderTopColor: '#000000',
-       borderTopWidth: '1px',
-       width: '80%'
-     }
-  });
-  
+  container: {
+    flex: 1,
+    backgroundColor: '#5ac7aa',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column'
+  },
+  title: {
+    fontSize: 27,
+    fontWeight: 600
+  },
+  headline: {
+    flex: 1,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  row: {
+    flexDirection: 'row',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+  main: {
+    flex: 3,
+    width: '100%',
+    borderTopEndRadius: '37px',
+    borderTopStartRadius: '37px',
+    backgroundColor: '#ffff',
+    alignItems: 'center',
+    paddingTop: '40px',
+  },
+  google: {
+    padding: '10px',
+    borderRadius: '20px',
+    backgroundColor: '#eeeeee',
+    width: '80%',
+    marginTop: '15px',
+    marginBottom: '15px',
+    display: 'flex',
+    alignItems: 'center'
+  },
+  footer: {
+    borderTopColor: '#000000',
+    borderTopWidth: '1px',
+    width: '80%'
+  }
+});

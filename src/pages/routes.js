@@ -22,7 +22,7 @@ const AppStack = createStackNavigator();
 export default function Routes() {
   return (
     <NavigationContainer>
-      <AppStack.Navigator initialRouteName="Preload" screenOptions={{
+      <AppStack.Navigator initialRouteName="Login" screenOptions={{
         headerShown: false,
         gestureEnabled: true,
         gestureDirection: "horizontal",

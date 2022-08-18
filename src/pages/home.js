@@ -12,37 +12,40 @@ export default function First() {
 
   const navigation = useNavigation();
 
-  function navigateToChoices() {
-    navigation.navigate("Choices");
+  function navigateToCreateGroup() {
+    navigation.navigate("Create");
   }
-  function navigateToSearch() {
+  function navigateToAllGroups() {
     navigation.navigate("Search");
+  }
+  function navigateToGroups() {
+    navigation.navigate("Groups");
   }
 
   return (
-            
-        <>     
-                
-                <View style={styles.container}>
-      <View style={styles.headline}> 
 
-        <Text  style={{fontSize: 28, marginTop: 10, fontWeight: 600, marginBottom: 10}}>Selecione seus gostos</Text> 
+    <>
 
-           <OutlineButton title="Próximo "></OutlineButton>
+      <View style={styles.container}>
+        <View style={styles.headline}>
+
+          <Text style={{ fontSize: 40, marginTop: 10, fontWeight: 600, marginBottom: 10 }}>Página Inicial</Text>
+
+          {/* <OutlineButton title="Próximo "></OutlineButton> */}
+        </View>
+        <View style={styles.main}>
+
+          <LargeButton onPress={() => { navigateToAllGroups() }} icon='https://cdn-icons-png.flaticon.com/512/1076/1076744.png' title='Pesquisar Grupos'></LargeButton>
+          <LargeButton onPress={() => { navigateToCreateGroup() }} icon='https://cdn-icons-png.flaticon.com/512/149/149145.png' title='Criar Grupo'></LargeButton>
+
+          <View style={styles.line}></View>
+
+          <LargeButton onPress={() => { navigateToGroups() }} icon='https://cdn.icon-icons.com/icons2/1674/PNG/512/person_110935.png' title='Seus grupos'></LargeButton>
+
+        </View>
       </View>
-      <View style={styles.main}>
 
-            <LargeButton icon='https://cdn-icons-png.flaticon.com/512/1076/1076744.png' title='Pesquisar Grupos'></LargeButton>
-            <LargeButton icon='https://cdn-icons-png.flaticon.com/512/149/149145.png' title='Criar Grupo'></LargeButton>
-
-            <View style={styles.line}></View>
-
-            <LargeButton onPress={()=>{navigateToSearch()}} icon='https://cdn.icon-icons.com/icons2/1674/PNG/512/person_110935.png' title='Seus grupos'></LargeButton>
-        
-      </View>
-   </View>
-
-        </>
+    </>
 
   );
 }
@@ -51,12 +54,12 @@ export default function First() {
 
 
 const styles = StyleSheet.create({
-    line:{
-        borderColor: '#000000',
-        borderBottomWidth: 1,
-        marginBottom: 30,
-        marginTop: 10
-    },
+  line: {
+    borderColor: '#000000',
+    borderBottomWidth: 1,
+    marginBottom: 30,
+    marginTop: 10
+  },
   container: {
     flex: 1,
     backgroundColor: '#5ac7aa',
@@ -76,9 +79,9 @@ const styles = StyleSheet.create({
     borderTopEndRadius: '37px',
     borderTopStartRadius: '37px',
     backgroundColor: '#ffff',
-    paddingTop:'40px',
+    paddingTop: '40px',
     padding: 30,
-    
+
   },
   row: {
     flexDirection: 'row',
@@ -92,6 +95,6 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     marginBottom: '5px',
     fontSize: 22
-},  
-    
+  },
+
 });

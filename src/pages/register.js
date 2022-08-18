@@ -45,7 +45,7 @@ export default function First({ navigation }) {
     <View style={styles.container}>
       <View style={styles.headline}>
 
-        <Image source={{ uri: 'https://cdn-icons-png.flaticon.com/512/5014/5014872.png' }} style={{ width: 90, height: 90 }} />
+        <Image source={{ uri: 'https://cdn-icons-png.flaticon.com/512/5014/5014872.png' }} style={{ width: 120, height: 120 }} />
 
       </View>
       <View style={styles.main}>
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column'
   },
   headline: {
-    flex: 0.6,
+    flex: 0.9,
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center'

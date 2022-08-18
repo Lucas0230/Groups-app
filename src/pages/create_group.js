@@ -61,7 +61,7 @@ export default function First({ navigation }) {
 
       </View>
       <View style={styles.main}>
-        <Input onChange={() => { setName(event.target.value) }} title='Nome:' placeholder="Digite o nome do grupo"></Input>
+        <Input onChangeText={(t) => { setName(t) }} title='Nome:' placeholder="Digite o nome do grupo"></Input>
         <View style={styles.title}>Descrição do grupo:</View>
         <TextInput
           onChange={() => { setDescription(event.target.value) }}

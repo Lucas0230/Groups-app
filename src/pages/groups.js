@@ -50,8 +50,8 @@ export default function First() {
           }
 
 
-          <GroupsBox title='Grupo do Futebol' icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/280px-Football_iu_1996.jpg'></GroupsBox>
-          <GroupsBox title='Grupo do Futebol' icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/280px-Football_iu_1996.jpg'></GroupsBox>
+          {/* <GroupsBox title='Grupo do Futebol' icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/280px-Football_iu_1996.jpg'></GroupsBox> */}
+          {/* <GroupsBox title='Grupo do Futebol' icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/280px-Football_iu_1996.jpg'></GroupsBox> */}
 
         </View>
       </View>
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column'
   },
   title: {
-    fontSize: 27,
+    fontSize: 35,
     fontWeight: 600,
     fontFamily: 'Voltaire_400Regular'
 

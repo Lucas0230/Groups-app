@@ -22,7 +22,7 @@ export default function First() {
   }
 
   function next() {
-    navigation.navigate("Groups");
+    navigation.navigate("Home");
   }
 
   const [email, setEmail] = useState();
@@ -37,16 +37,14 @@ export default function First() {
     const { token } = await Api.signIn(email, password);
 
     if (token) {
-      await AsyncStorage.setItem('token', token);
+      // await AsyncStorage.setItem('token', token);
 
-      console.log(token)
-
-      UserContext({
-        type: 'setAvatar',
-        payload: {
-          avatar: 'testestesttestesteste'
-        }
-      })
+      // UserContext({
+      //   type: 'setAvatar',
+      //   payload: {
+      //     avatar: 'testestesttestesteste'
+      //   }
+      // })
 
       next()
     }
@@ -60,7 +58,7 @@ export default function First() {
       <View style={styles.container}>
         <View style={styles.headline}>
 
-          <Image source={require('../../assets/img/logo.png')} style={{ width: 160, height: 160 }} />
+          <Image source={require('../../assets/img/logo.png')} style={styles.img} />
 
         </View>
         <View style={styles.main}>
@@ -68,16 +66,16 @@ export default function First() {
           <Input onChangeText={(t) => { setEmail(t) }} value={email} title='Email:' placeholder="Digite seu usuário"></Input>
           <Input secureTextEntry={true} onChangeText={(t) => { setPassword(t) }} value={password} title='Senha:' placeholder="Digite sua senha"></Input>
 
-          <View style={styles.google}>
+          {/* <View style={styles.google}>
             <Text style={{ fontSize: 15 }}>Conecte com o google</Text>
-          </View>
+          </View> */}
 
           <Button onPress={() => { login() }} title='Próximo'></Button>
 
 
           <View style={styles.footer}>
             <View style={styles.row}>
-              <Text style={{ fontSize: 12, marginTop: 5 }}>Esqueceu a senha?</Text>
+              {/* <Text style={{ fontSize: 12, marginTop: 5 }}>Esqueceu a senha?</Text> */}
               <Text onPress={() => { navigateToRegister() }} style={{ fontSize: 12, marginTop: 5 }}>Criar uma nova conta</Text>
             </View>
           </View>
@@ -94,6 +92,10 @@ export default function First() {
 
 
 const styles = StyleSheet.create({
+  img: {
+    width: '70vw',
+    height: '70%'
+  },
   container: {
     flex: 1,
     backgroundColor: '#5ac7aa',
@@ -111,10 +113,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'center',
   },
   main: {
-    flex: 2,
+    flex: 0.7,
     width: '100%',
     borderTopEndRadius: '37px',
     borderTopStartRadius: '37px',
@@ -135,6 +137,7 @@ const styles = StyleSheet.create({
   footer: {
     borderTopColor: '#000000',
     borderTopWidth: '1px',
-    width: '80%'
+    width: '80%',
+    marginTop: 20
   }
 });
