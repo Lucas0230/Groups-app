@@ -1,13 +1,23 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { StyleSheet, View, TextInput, TouchableOpacity, Text, Image } from "react-native";
+import { StyleSheet, View, TextInput, TouchableOpacity, ScrollView, Text, Image } from "react-native";
 
 import Socket from "../Socket";
 
 import { Api } from "../Api";
 
+import { UserContext } from "../contexts/UserContext";
+
 export default function First({ route }) {
+
+    const navigation = useNavigation();
+
+    function back() {
+        navigation.navigate("Groups")
+    }
+
+    const { state: user } = useContext(UserContext);
 
     const groupId = route.params._id;
 
@@ -18,14 +28,15 @@ export default function First({ route }) {
     const [avatar, setAvatar] = useState();
     const [name, setName] = useState();
 
-    function back() {
-        // navigation.navigate("Groups")
-    }
 
     function sendMessage() {
+
+        console.log(user)
+
         Socket.sendMessage({
             message: messageToSend,
-            userId: '21313231',
+            userId: user._id,
+            name: user.name,
             time: new Date(),
             room: groupId
         })
@@ -34,18 +45,19 @@ export default function First({ route }) {
     }
 
     async function getChatConversations(groupId) {
+
         const { response } = await Api.getChatConversations(groupId);
-        console.log(response)
+
         if (response.avatar) {
             setAvatar(response.avatar)
         }
+
         setName(response.name)
         setChat(response.timeline);
     }
 
     function renderMessage(item) {
         setChat(chat => [...chat, item])
-
     }
 
     useEffect(() => {
@@ -60,7 +72,7 @@ export default function First({ route }) {
 
     }, [])
 
-    const navigation = useNavigation();
+    const scrollViewRef = useRef();
 
     return (
 
@@ -72,7 +84,7 @@ export default function First({ route }) {
                 <View style={styles.header}>
 
                     <View style={styles.return}>
-                        <TouchableOpacity onPress={back()}>
+                        <TouchableOpacity onPress={() => { back() }}>
                             <Image style={styles.imageReturn} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/109/109618.png' }}></Image>
                         </TouchableOpacity>
                     </View>
@@ -89,16 +101,36 @@ export default function First({ route }) {
 
                 <View style={styles.body}>
 
-                    {
-                        chat.map((element) => {
-                            if (!element.message) return
-                            return (
-                                <View style={styles.messageContainer}>
-                                    <Text style={styles.message}>{element.message}</Text>
-                                </View>)
-                        })
-                    }
+                    <ScrollView
+                        ref={scrollViewRef}
+                        onContentSizeChange={() => scrollViewRef.current.scrollToEnd()}>
 
+                        {
+                            chat.map((element) => {
+
+                                if (!element.message || !element.userId) return
+
+                                if (element.userId && user._id == element.userId) {
+
+                                    return (
+                                        <View style={styles.myMessageContainer}>
+                                            <Text style={styles.myMessage}>{element.message}</Text>
+                                            <Text style={styles.myDate}>{new Date(element.time).toTimeString().slice(0, 5)}</Text>
+                                        </View>)
+
+                                } else {
+
+                                    return (
+                                        <View style={styles.messageContainer}>
+                                            <Text style={styles.author}>{element.name ? element.name : ''}</Text>
+                                            <Text style={styles.message}>{element.message}</Text>
+                                            <Text style={styles.date}>{new Date(element.time).toTimeString().slice(0, 5)}</Text>
+                                        </View>)
+                                }
+                            })
+                        }
+
+                    </ScrollView>
                 </View>
 
 
@@ -131,6 +163,16 @@ export default function First({ route }) {
 
 
 const styles = StyleSheet.create({
+    myDate: {
+        fontSize: 10,
+        textAlign: "right"
+    },
+    date: {
+        fontSize: 10
+    },
+    author: {
+        fontSize: 10
+    },
     messageContainer: {
         padding: 10,
         marginVertical: 6,
@@ -138,6 +180,18 @@ const styles = StyleSheet.create({
         width: 'auto',
         borderRadius: 10,
         alignSelf: 'flex-start',
+    },
+    myMessageContainer: {
+        padding: 10,
+        marginVertical: 6,
+        backgroundColor: '#a1a1a1',
+        width: 'auto',
+        borderRadius: 10,
+        alignSelf: 'flex-end',
+    },
+    myMessage: {
+        fontSize: 16,
+        fontFamily: 'Voltaire_400Regular'
     },
     message: {
         fontSize: 16,
@@ -154,10 +208,11 @@ const styles = StyleSheet.create({
     },
     button: {
         backgroundColor: '#9adcb9',
-        width: 60,
-        height: 60,
+        width: 56,
+        height: 56,
         padding: 10,
-        fontSize: 16,
+        fontSize: 19,
+        fontWeight: 900,
         borderRadius: 40,
         display: 'flex',
         alignItems: 'center',
@@ -187,6 +242,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
         flex: 8,
         padding: 20,
+        maxHeight: '80vh'
     },
     footer: {
         backgroundColor: '#ffffff',

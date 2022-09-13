@@ -1,9 +1,11 @@
 import { StyleSheet, Text, View, TextInput } from 'react-native';
 
-export default function App() {
+
+export default function App({ onChangeText }) {
   return (
     <>
       <TextInput
+        onChangeText={onChangeText}
         style={styles.input}
         placeholder='Pesquisar Grupo'
       />
@@ -27,8 +29,8 @@ const styles = StyleSheet.create({
     width: '80%',
     height: 50,
     marginBottom: '15px',
-    fontFamily: 'Voltaire_400Regular'
-
+    fontFamily: 'Voltaire_400Regular',
+    fontSize: 20
   },
   container: {
     flex: 1,

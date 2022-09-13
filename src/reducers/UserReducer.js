@@ -1,8 +1,7 @@
 
 
 export const initialState = {
-    avatar: '',
-    choices: [],
+    _id: ''
 };
 
 export const UserReducer = (state, action) => {
@@ -11,6 +10,10 @@ export const UserReducer = (state, action) => {
         case 'setAvatar':
             return { ...state, avatar: action.payload.avatar };
             break;
+        case 'setId':
+            return { ...state, _id: action.payload._id }
+        case 'setName':
+            return { ...state, name: action.payload.name }
         default:
             return state;
     }

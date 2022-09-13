@@ -24,6 +24,7 @@ export default function First() {
   function next() {
     navigation.navigate("Home");
   }
+  const [error, setError] = useState(false)
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -34,17 +35,25 @@ export default function First() {
       return
     }
 
-    const { token } = await Api.signIn(email, password);
+    const { token, _id, name } = await Api.signIn(email, password);
 
-    if (token) {
-      // await AsyncStorage.setItem('token', token);
+    if (!token || !_id || !name) return setError(true)
 
-      // UserContext({
-      //   type: 'setAvatar',
-      //   payload: {
-      //     avatar: 'testestesttestesteste'
-      //   }
-      // })
+    if (token && _id && name) {
+      await AsyncStorage.setItem('token', token);
+
+      userDispatch({
+        type: 'setId',
+        payload: {
+          _id: _id,
+        }
+      })
+      userDispatch({
+        type: 'setName',
+        payload: {
+          name: name
+        }
+      })
 
       next()
     }
@@ -63,15 +72,18 @@ export default function First() {
         </View>
         <View style={styles.main}>
 
-          <Input onChangeText={(t) => { setEmail(t) }} value={email} title='Email:' placeholder="Digite seu usuário"></Input>
+          <Input onChangeText={(t) => { setEmail(t) }} value={email} title='Email:' placeholder="Digite seu email:"></Input>
           <Input secureTextEntry={true} onChangeText={(t) => { setPassword(t) }} value={password} title='Senha:' placeholder="Digite sua senha"></Input>
 
           {/* <View style={styles.google}>
             <Text style={{ fontSize: 15 }}>Conecte com o google</Text>
           </View> */}
 
-          <Button onPress={() => { login() }} title='Próximo'></Button>
+          <View style={error ? styles.errorContainer : styles.noErrorContainer}>
+            <Text style={styles.error}>Email ou senha incorretos!</Text>
+          </View>
 
+          <Button onPress={() => { login() }} title='Próximo'></Button>
 
           <View style={styles.footer}>
             <View style={styles.row}>
@@ -95,6 +107,22 @@ const styles = StyleSheet.create({
   img: {
     width: '70vw',
     height: '70%'
+  },
+  error: {
+    color: '#a80213',
+  },
+  noErrorContainer: {
+    display: "none",
+  },
+  errorContainer: {
+    display: "flex",
+    // paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: '20px',
+    alignItems: 'center',
+    justifyContent: 'center',
+    // backgroundColor: '#ff9ea8',
+    width: '80%',
   },
   container: {
     flex: 1,

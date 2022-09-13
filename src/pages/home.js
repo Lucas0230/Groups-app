@@ -29,18 +29,19 @@ export default function First() {
       <View style={styles.container}>
         <View style={styles.headline}>
 
-          <Text style={{ fontSize: 40, marginTop: 10, fontWeight: 600, marginBottom: 10 }}>Página Inicial</Text>
+          <Image source={{ uri: 'https://cdn-icons-png.flaticon.com/512/5014/5014872.png' }} style={{ width: 160, height: 160, marginBottom: 40, marginTop: 20 }} />
+          <Text style={{ fontSize: 45, marginTop: 10, fontWeight: 600, marginBottom: 10, }}>Página Inicial</Text>
 
           {/* <OutlineButton title="Próximo "></OutlineButton> */}
         </View>
         <View style={styles.main}>
 
-          <LargeButton onPress={() => { navigateToAllGroups() }} icon='https://cdn-icons-png.flaticon.com/512/1076/1076744.png' title='Pesquisar Grupos'></LargeButton>
-          <LargeButton onPress={() => { navigateToCreateGroup() }} icon='https://cdn-icons-png.flaticon.com/512/149/149145.png' title='Criar Grupo'></LargeButton>
+          <LargeButton onPress={() => { navigateToAllGroups() }} icon='https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Search_Icon.svg/1024px-Search_Icon.svg.png' title='Pesquisar Grupos'></LargeButton>
+          <LargeButton onPress={() => { navigateToCreateGroup() }} icon='https://www.freeiconspng.com/thumbs/plus-icon/plus-sign-icon-31.png' title='Criar Grupo'></LargeButton>
 
           <View style={styles.line}></View>
 
-          <LargeButton onPress={() => { navigateToGroups() }} icon='https://cdn.icon-icons.com/icons2/1674/PNG/512/person_110935.png' title='Seus grupos'></LargeButton>
+          <LargeButton onPress={() => { navigateToGroups() }} icon='https://icons-for-free.com/iconfiles/png/512/person-1324760545186718018.png' title='Seus grupos'></LargeButton>
 
         </View>
       </View>
@@ -68,7 +69,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column'
   },
   headline: {
-    flex: 0.9,
+    flex: 2,
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center'

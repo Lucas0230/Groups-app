@@ -4,7 +4,6 @@ export default function App({ title, icon, onPress }) {
   return (
     <>
       <TouchableOpacity onPress={onPress} style={styles.button}>
-
         <Image style={styles.image} source={{ uri: icon }}></Image>
         <Text style={{ fontSize: 18 }}>{title}</Text>
       </TouchableOpacity>

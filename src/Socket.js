@@ -40,15 +40,13 @@ class Socket {
 
     newMessage(callback) {
         this.socket.on("newMessage", (message) => {
-            console.log(`TESTE CLIENTE`);
-
             callback(message);
         });
     }
 
-    async sendMessage({ message, room, userId, time }) {
+    async sendMessage({ message, room, userId, time, name }) {
         this.middleware();
-        this.socket.emit("message", { message, room, userId, time });
+        this.socket.emit("message", { message, room, userId, name, time });
     }
 
     join({ room }) {

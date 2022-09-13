@@ -1,8 +1,9 @@
 
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { StyleSheet, Image, View, TouchableOpacity, Text } from "react-native";
+import { StyleSheet, Image, View, TouchableOpacity, Text, TextInput } from "react-native";
 
+import { IMaskInput } from "react-imask";
 
 import Input from '../components/input'
 import Button from '../components/button'
@@ -18,6 +19,7 @@ export default function First({ navigation }) {
 
 
   const [name, setName] = useState()
+  const [age, setAge] = useState()
   const [password, setPassword] = useState()
   const [email, setEmail] = useState()
   // const [cpf, setCpf] = useState()
@@ -25,15 +27,7 @@ export default function First({ navigation }) {
 
   const proximo = () => {
 
-    let newUser = { name, password, email, phone };
-
-    // for (let data of Object.keys(user)) {
-
-    //   if (!user[data]) {
-    //     return alert('Preencha todos os dados!')
-    //   }
-
-    // }
+    let newUser = { name, password, email, phone, age };
 
     navigateToRegisterTwo(newUser);
 
@@ -49,11 +43,47 @@ export default function First({ navigation }) {
 
       </View>
       <View style={styles.main}>
-        <Input onChangeText={(t) => { setName(t) }} value={name} title='Nome:' placeholder="Digite seu nome"></Input>
-        <Input onChangeText={(t) => { setPassword(t) }} value={password} title='Senha:' placeholder="Digite sua senha"></Input>
-        <Input onChangeText={(t) => { setEmail(t) }} value={email} title='Email:' placeholder="Digite sua email"></Input>
-        {/* <Input onChange={() => { setCpf(event.target.value) }} title='CPF:' placeholder="Digite sua CPF"></Input> */}
-        <Input onChangeText={(t) => { setPhone(t) }} value={phone} title='Telefone:' placeholder="Digite sua telefone"></Input>
+
+        <View style={styles.title}>Nome:</View>
+        <TextInput
+          style={styles.input}
+          value={name}
+          onChangeText={(t) => { setName(t) }}
+          placeholder="Digite seu nome"
+        />
+
+
+        <View style={styles.title}>Email:</View>
+        <TextInput
+          style={styles.input}
+          onChangeText={(t) => { setEmail(t) }}
+          value={email}
+          placeholder="Digite seu email"
+        />
+
+        <View style={styles.title}>Senha:</View>
+        <TextInput
+          style={styles.input}
+          onChangeText={(t) => { setPassword(t) }}
+          secureTextEntry="true"
+          value={password}
+          placeholder="Digite sua senha"
+        />
+
+        <View style={styles.title}>Telefone:</View>
+        <TextInput
+          style={styles.input}
+          placeholder="Digite seu telefone"
+          onChangeText={(t) => { setPhone(t) }} value={phone}
+        />
+
+        <View style={styles.title}>Idade:</View>
+        <TextInput
+          style={styles.input}
+          onChangeText={() => { setAge(event.target.value) }}
+          title='Idade:'
+          placeholder="Digite sua idade"
+        />
 
 
         <Button onPress={() => { proximo() }} title='Próximo >'></Button>
@@ -101,5 +131,21 @@ const styles = StyleSheet.create({
     borderTopColor: '#000000',
     borderTopWidth: '1px',
     width: '80%'
-  }
+  },
+  title: {
+    width: '75%',
+    textAlign: 'left',
+    marginBottom: '5px',
+    fontSize: 22,
+    fontFamily: 'Voltaire_400Regular'
+  },
+  input: {
+    padding: '10px',
+    borderColor: '#9adcb9',
+    borderWidth: '3px',
+    borderRadius: '20px',
+    width: '80%',
+    marginBottom: '15px',
+
+  },
 });

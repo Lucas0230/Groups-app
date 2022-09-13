@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, View, TouchableOpacity, Text, Image } from "react-native";
 
@@ -7,9 +7,11 @@ import SearchInput from '../components/searchInput'
 import GroupsBox from '../components/groupsBox'
 import { Api } from "../Api";
 
-import Socket from "../Socket";
+import { UserContext } from "../contexts/UserContext";
 
 export default function First() {
+
+  const { state: user } = useContext(UserContext);
 
   const navigation = useNavigation();
 
@@ -20,7 +22,13 @@ export default function First() {
   const [listGroups, setListGroups] = useState([]);
 
   async function getGroups() {
-    const { response } = await Api.getGroups();
+    const { response } = await Api.getGroups(user._id);
+    setListGroups(response);
+  }
+
+  async function searchGroups(name) {
+
+    const { response } = await Api.getGroups(user._id, name);
     setListGroups(response);
   }
 
@@ -39,7 +47,7 @@ export default function First() {
         </View>
         <View style={styles.main}>
 
-          <SearchInput></SearchInput>
+          <SearchInput onChangeText={(t) => { searchGroups(t) }}></SearchInput>
 
           {
             listGroups.map((element) => {

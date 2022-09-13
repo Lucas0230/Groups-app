@@ -50,7 +50,7 @@ export default function First({ route }) {
 
           <Text style={{ fontSize: 28, fontFamily: 'Voltaire_400Regular', marginTop: 10, fontWeight: 600, marginBottom: 10 }}>Selecione seus gostos</Text>
 
-          <OutlineButton onPress={() => { register() }} title="Próximo "></OutlineButton>
+          <OutlineButton onPress={() => { register() }} title="Finalizar"></OutlineButton>
         </View>
         <View style={styles.main}>
 
@@ -61,6 +61,14 @@ export default function First({ route }) {
           <View style={styles.row}>
             <Box onPress={() => { setChoices(choices => [...choices, 'Arte']) }} title={'Arte'}></Box>
             <Box onPress={() => { setChoices(choices => [...choices, 'Futebol']) }} title={'Tecnologia'}></Box>
+          </View>
+          <View style={styles.row}>
+            <Box onPress={() => { setChoices(choices => [...choices, 'Cinema']) }} title={'Cinema'}></Box>
+            <Box onPress={() => { setChoices(choices => [...choices, 'Cinema']) }} title={'Livro'}></Box>
+          </View>
+          <View style={styles.row}>
+            <Box onPress={() => { setChoices(choices => [...choices, 'Cinema']) }} title={'Cinema'}></Box>
+            <Box onPress={() => { setChoices(choices => [...choices, 'Cinema']) }} title={'Livro'}></Box>
           </View>
           <View style={styles.row}>
             <Box onPress={() => { setChoices(choices => [...choices, 'Cinema']) }} title={'Cinema'}></Box>

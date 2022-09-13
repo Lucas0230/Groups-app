@@ -13,14 +13,23 @@ export const Api = {
                 'Content-type': 'application/json',
             },
         })
-
-        let { token } = await response.json();
-        return { token };
+        let { token, _id, name } = await response.json();
+        return { token, _id, name };
     },
     signUp: async (newUser) => {
         const { ok } = await fetch(API + '/users', {
             method: 'POST',
             body: JSON.stringify(newUser),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+        return { ok };
+    },
+    addUser: async (userId, groupId) => {
+        const { ok } = await fetch(API + '/groups', {
+            method: 'PUT',
+            body: JSON.stringify({ userId, groupId }),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
             },
@@ -39,8 +48,24 @@ export const Api = {
         let { name, email, choices, phone } = await response.json();
         return { name, email, choices, phone };
     },
-    getGroups: async () => {
-        const response = await fetch(API + '/groups', {
+    getGroups: async (id, name, tag) => {
+
+        let url = '/groups?';
+
+        if (id) {
+            url += `id=${id}&`
+        }
+
+        if (name) {
+            url += `name=${name}&`
+        }
+
+        if (tag) {
+            url += `tag=${tag}&`
+        }
+
+        console.log(url)
+        const response = await fetch(API + url, {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
@@ -62,5 +87,16 @@ export const Api = {
         let res = await response.json();
         return res;
 
+    },
+    getUser: async (userId) => {
+        const response = await fetch(API + `/users/${userId}`, {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+        let res = await response.json();
+        return res;
     }
 }

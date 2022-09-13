@@ -9,16 +9,12 @@ import Button from '../components/button'
 export default function First({ navigation, route }) {
   // const navigation = useNavigation();
 
-  const [age, setAge] = useState()
   const [about, setAbout] = useState()
 
   function navigateToRegisterChoices() {
 
     let { dados } = route.params;
 
-    console.log(dados, '2')
-
-    dados.age = age;
     dados.about = about
 
     navigation.navigate("Choices", { dados });
@@ -30,19 +26,20 @@ export default function First({ navigation, route }) {
       <View style={styles.headline}>
 
         <TouchableOpacity style={styles.imagePicker}>
-          <Image source={{ uri: 'https://cdn-icons-png.flaticon.com/512/5014/5014872.png' }} style={{ width: 70, height: 70 }} />
+          <Image source={{ uri: 'https://cdn-icons-png.flaticon.com/512/5014/5014872.png' }} style={{ width: 90, height: 90 }} />
         </TouchableOpacity>
 
-        <Text style={{ fontSize: 24, marginTop: 10, fontWeight: 600 }}>Adicione uma foto</Text>
+        <Text style={{ fontSize: 32, marginTop: 10, fontWeight: 600 }}>Adicione uma foto</Text>
 
       </View>
       <View style={styles.main}>
-        <Input onChange={() => { setAge(event.target.value) }} title='Idade:' placeholder="Digite sua idade"></Input>
+
         <View style={styles.title}>Conte sobre você:</View>
         <TextInput
-          onChange={() => { setAbout(event.target.value) }}
+          onChangeText={() => { setAbout(event.target.value) }}
+          value={about}
           style={styles.input}
-
+          multiline={true}
         />
 
         <Button onPress={() => { navigateToRegisterChoices() }} title='Próximo >'></Button>
@@ -67,7 +64,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   main: {
-    flex: 2,
+    flex: 1,
     width: '100%',
     borderTopEndRadius: '37px',
     borderTopStartRadius: '37px',
@@ -94,10 +91,28 @@ const styles = StyleSheet.create({
   imagePicker: {
     backgroundColor: '#FFFFFF',
     borderRadius: '50%',
-    width: 140,
-    height: 140,
+    marginBottom: 20,
+    width: 200,
+    height: 200,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'
-  }
+  },
+  title: {
+    width: '75%',
+    textAlign: 'left',
+    marginBottom: '5px',
+    fontSize: 22,
+    fontFamily: 'Voltaire_400Regular'
+  },
+  input: {
+    padding: '10px',
+    borderColor: '#9adcb9',
+    borderWidth: '3px',
+    borderRadius: '20px',
+    width: '80%',
+    height: 240,
+    marginBottom: '15px',
+    textAlignVertical: 'top'
+  },
 });
